@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Pistol : Weapon
 {
-    [SerializeField] private Text ammoText;
+    /*[SerializeField] private Text ammoText;
 
     private void Start()
     {
@@ -51,7 +51,7 @@ public class Pistol : Weapon
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {
 
-                Enemy enemy = hit.transform.GetComponent<Enemy>();
+                EnemyAI enemy = hit.transform.GetComponent<EnemyAI>();
 
                 if (enemy != null)
                 {
@@ -66,4 +66,5 @@ public class Pistol : Weapon
             ammoText.text = currentAmmo.ToString() + " / " + maxAmmo.ToString();
         }
     }
+    */
 }

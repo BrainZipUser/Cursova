@@ -55,7 +55,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.5
+    value: 1
   threshold:
     overrideState: 0
     value: 1
@@ -166,7 +166,7 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 1
+    value: 0
   focusDistance:
     overrideState: 1
     value: 0.37
@@ -206,13 +206,13 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.5
+    value: 0.494
   smoothness:
     overrideState: 1
-    value: 0.5
+    value: 0.764
   roundness:
     overrideState: 1
-    value: 0.7
+    value: 0.364
   rounded:
     overrideState: 0
     value: 0

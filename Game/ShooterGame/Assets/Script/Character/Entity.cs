@@ -6,7 +6,8 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] protected float _currentHealth;
     [SerializeField] protected float _maxHealth;
-    [SerializeField] protected float shield;
+    [SerializeField] protected float _currentShield;
+    [SerializeField] protected float _maxShield;
     private bool isDead = false;
 
     public bool IsDead{ get { return isDead; } }
