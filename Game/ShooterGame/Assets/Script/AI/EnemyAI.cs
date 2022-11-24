@@ -11,6 +11,12 @@ public class EnemyAI : Entity
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float shootForce;
 
+    [SerializeField] private GameObject health;
+    [SerializeField] private GameObject shield;
+    [SerializeField] private GameObject ammo;
+
+    [SerializeField] private Transform statsPosition;
+
     //Stats Bar
     [SerializeField] private StatsBar statsBar;
 
@@ -96,14 +102,16 @@ public class EnemyAI : Entity
         if (!alreadyAtack)
         {
             //Attack
+            Rigidbody rb = Instantiate(bullet, attackPoint.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            //rb.AddForce(transform.up * 8f, ForceMode.Impulse);
 
-            GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-            currentBullet.transform.forward = player.transform.position;
-            currentBullet.GetComponent<Rigidbody>().AddForce(player.transform.position * shootForce, ForceMode.Impulse);
-            if(currentBullet.gameObject != null)
+           /*if (bullet != null && rb != null)
             {
-                Destroy(currentBullet.gameObject, 3f);
+                Destroy(rb, 1f);
+                Destroy(bullet, 1f);
             }
+           */
 
             alreadyAtack = true;
             Invoke(nameof(ResetAttack), timeBetweenAtack);
@@ -127,6 +135,7 @@ public class EnemyAI : Entity
 
             if(_currentHealth <= 0) 
             {
+                FindObjectOfType<AudioManager>().Play("Damage Enemy");
                 Death();
             }
         }
@@ -135,12 +144,36 @@ public class EnemyAI : Entity
         statsBar.SetShield(_currentShield);
     }
 
+    private void SpawnStats()
+    {
+        int index = Random.Range(0, 2);
+
+        switch (index)
+        {
+            case 0:
+                if (gameObject != null)
+                {
+                    Instantiate(health, statsPosition.position, Quaternion.identity);
+                }
+                break;
+            case 1:
+                if (gameObject != null)
+                {
+                    Instantiate(shield, statsPosition.position, Quaternion.identity);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     override protected void Death()
     {
         //animator.SetBool("Fall", true);
         if (gameObject != null)
         {
-            Destroy(gameObject);
+            SpawnStats();
+            Destroy(gameObject , 0.1f);
         }
     }
 }

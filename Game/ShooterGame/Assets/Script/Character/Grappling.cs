@@ -5,11 +5,14 @@ using UnityEngine;
 public class Grappling : MonoBehaviour
 {
     [Header("References")]
-    private Character_Controller pm;
+    [SerializeField] private Character_Controller pm;
     [SerializeField] private Transform cam;
     [SerializeField] private Transform gunTip;
     [SerializeField] private LayerMask whatIsGrappleable;
     [SerializeField] private LineRenderer lr;
+    private bool isEquepped;
+
+    public bool IsEquepped { get { return isEquepped; } set { isEquepped = value; } }
 
     [Header("Grappling")]
     [SerializeField] private float maxGrappleDistance;
@@ -27,14 +30,9 @@ public class Grappling : MonoBehaviour
 
     private bool grappling;
 
-    private void Start()
-    {
-        pm = GetComponent<Character_Controller>();
-    }
-
     private void Update()
     {
-        if (Input.GetKeyDown(grappleKey))
+        if (Input.GetKeyDown(grappleKey) && isEquepped)
         {
             StartGrapple();
         }

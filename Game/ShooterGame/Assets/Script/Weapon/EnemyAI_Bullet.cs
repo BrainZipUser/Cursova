@@ -7,11 +7,17 @@ public class EnemyAI_Bullet : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private FP_Character player;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             player.TakeDamage(damage);
         }
+
+        if (other.gameObject.tag != "Player" && gameObject != null)
+        {
+            Destroy(gameObject, 1.5f);
+        }
+
     }
 }

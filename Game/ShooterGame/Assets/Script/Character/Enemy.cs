@@ -76,7 +76,10 @@ public class Enemy : Entity
             npcDead.GetComponent<Rigidbody>().velocity = (-(playerTransform.position - transform.position).normalized * 8) + new Vector3(0, 5, 0);
             Destroy(npcDead, 10);
             //es.EnemyEliminated(this);
-            Destroy(gameObject);
+            if (gameObject != null)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class Pain_Zone : MonoBehaviour
 {
-    [SerializeField] private FP_Character character;
     [SerializeField] private float value;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") 
+        if (other.gameObject.tag == "Player") 
         {
-            character.TakeDamage(value);
+            other.gameObject.GetComponent<FP_Character>().TakeDamage(value);
         }
     }
 }

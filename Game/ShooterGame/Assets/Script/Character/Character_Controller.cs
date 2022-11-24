@@ -7,8 +7,10 @@ public class Character_Controller : MonoBehaviour
     private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float sprintSpeed;
+    [SerializeField] private Animator animator;
 
     [SerializeField] private float groundDrag;
+    [SerializeField] private Grappling grapple;
 
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpCooldown;
@@ -100,6 +102,7 @@ public class Character_Controller : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+        animator.SetFloat("Speed", rb.velocity.magnitude);
     }
 
     private void FixedUpdate()
@@ -211,7 +214,7 @@ public class Character_Controller : MonoBehaviour
             enableMovementOnNextTouch = false;
             ResetRestriction();
 
-            GetComponent<Grappling>().StopGrapple();
+            grapple.StopGrapple();
         }
     }
 

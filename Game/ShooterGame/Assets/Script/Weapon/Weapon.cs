@@ -11,12 +11,21 @@ public class Weapon : MonoBehaviour
 
     //bullet force
     public float shootForce, upwardForce;
+    public Animator animator;
 
     //Gun stats
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     public float damage = 25;
+    private bool isEquepped;
+
+    public bool IsEquepped { get { return isEquepped; } set { isEquepped = value; } }
+
+    public void AddAmmo(int ammo)
+    {
+        magazineSize += ammo;
+    }
 
     int bulletsLeft, bulletsShot;
 
@@ -109,7 +118,7 @@ public class Weapon : MonoBehaviour
         currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
         if (currentBullet != null)
-            Destroy(currentBullet, 3f);
+            Destroy(currentBullet , 2f);
 
         //Instantiate muzzle flash, if you have one
         //if (muzzleFlash != null)
@@ -123,6 +132,7 @@ public class Weapon : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
+            FindObjectOfType<AudioManager>().Play("Shoot");
 
             //Add recoil to player (should only be called once)
             playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
@@ -142,11 +152,14 @@ public class Weapon : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        Invoke("ReloadFinished", reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
+        animator.SetBool("Reload", true);
+        FindObjectOfType<AudioManager>().Play("Reload");
+        Invoke("ReloadFinished", reloadTime); //Invoke ReloadFinished function with your reloadTime as delay 
     }
     private void ReloadFinished()
     {
         //Fill magazine
+        animator.SetBool("Reload", false);
         bulletsLeft = magazineSize;
         reloading = false;
     }
